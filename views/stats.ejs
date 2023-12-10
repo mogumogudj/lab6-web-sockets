@@ -1,4 +1,4 @@
-<!-- views/stats.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,15 +14,30 @@
     <script>
         const primus = new Primus();
 
+        const teamScores = {};
+
         primus.on('data', (data) => {
             updateStatsList(data);
         });
 
         function updateStatsList(data) {
             const statsList = document.getElementById('statsList');
-            const listItem = document.createElement('li');
-            listItem.textContent = `${data.team}: ${data.score}`;
-            statsList.appendChild(listItem);
+            if (teamScores[data.team]) {
+                // Update the existing score
+                teamScores[data.team] += parseInt(data.score, 10);
+                // Find and update the corresponding list item
+                const listItem = document.querySelector(`#statsList li[data-team="${data.team}"]`);
+                if (listItem) {
+                    listItem.textContent = `${data.team}: ${teamScores[data.team]}`;
+                }
+            } else {
+                // Add a new score for the team
+                teamScores[data.team] = parseInt(data.score, 10);
+                const listItem = document.createElement('li');
+                listItem.textContent = `${data.team}: ${teamScores[data.team]}`;
+                listItem.setAttribute('data-team', data.team);
+                statsList.appendChild(listItem);
+            }
         }
     </script>
 </body>
