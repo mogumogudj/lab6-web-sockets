@@ -11,6 +11,7 @@ const primus = new Primus(server, { transformer: 'websockets' });
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 app.get('/updatestats', (req, res) => {
   console.log("Render updatestats page");

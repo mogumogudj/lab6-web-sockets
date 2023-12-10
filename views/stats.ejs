@@ -5,10 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin: 0;
+        }
+
+        #statsList {
+            list-style: none;
+            padding: 0;
+            margin: 10px;
+        }
+
+        #statsList li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        img {
+            max-width: 30px;
+            max-height: 30px;
+            margin-right: 10px;
+        }
+
+        #navbar {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #navbar img {
+            max-width: 200px;
+        }
+    </style>
 </head>
 <body>
+    <div id="navbar">
+        <img src="/images/new-premier-league2016-17-seeklogo.com.svg" alt="Premier League Logo">
+    </div>
+
     <h1>Live Stats</h1>
-    <ul id="statsList"></ul>
+    <ul id="statsList">
+    </ul>
 
     <script src="/primus/primus.js"></script>
     <script>
@@ -38,6 +91,12 @@
                 listItem.setAttribute('data-team', data.team);
                 statsList.appendChild(listItem);
             }
+        }
+
+        function getTeamLogoPath(team) {
+            // Replace spaces with underscores and convert to lowercase for consistency
+            const teamKey = team.replace(/\s+/g, '_').toLowerCase();
+            return `/images/${teamKey}.png`; // Adjust the path based on your image locations
         }
     </script>
 </body>
