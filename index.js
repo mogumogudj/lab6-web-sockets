@@ -13,11 +13,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.get('/updatestats', (req, res) => {
-  res.send('Render your form here');
+  console.log("Render updatestats page");
+  res.render('updatestats');
 });
 
 app.get('/', (req, res) => {
-  res.send('Render your stats view here');
+    console.log("Rendering stats page");
+  res.render('stats');
 });
 
 primus.on('connection', (spark) => {
