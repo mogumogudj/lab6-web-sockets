@@ -3,10 +3,14 @@ const express = require('express');
 const http = require('http');
 const Primus = require('primus');
 const ws = require('ws');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
 const primus = new Primus(server, { transformer: 'websockets' });
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.get('/updatestats', (req, res) => {
   res.send('Render your form here');
